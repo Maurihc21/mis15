@@ -82,6 +82,12 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+}
+
+.hint {
+  font-size: 14px;
+  opacity: 0.6;
 }
 
 .sobre {
@@ -307,17 +313,15 @@ section.visible {
 <body>
 
   <!-- SOBRE INICIAL -->
-<section id="splash" class="splash">
-  
+<section id="splash" class="splash" onclick="abrirInvitacion()">
+
   <div class="sobre">
     ✉️
   </div>
 
   <h2>Tenés una invitación</h2>
 
-  <button onclick="abrirInvitacion()">
-    Abrir invitación
-  </button>
+  <p class="hint">Tocá el sobre para abrir</p>
 
 </section>
 
