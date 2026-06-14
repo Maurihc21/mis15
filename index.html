@@ -722,12 +722,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // CALENDARIO (Google Calendar)
 function agendarEvento() {
-  const url = "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+
+  const isApple = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (isApple) {
+    descargarICS();
+  } else {
+    abrirGoogleCalendar();
+  }
+
+}
+
+function abrirGoogleCalendar() {
+  const url = 
+    "https://calendar.google.com/calendar/render?action=TEMPLATE" +
     "&text=Mis+15+Años+Milagros" +
-    "&dates=20270315T210000/20270316T030000" +
+    "&dates=20260808T210000/20260809T030000" +
     "&details=Te+espero+en+mis+15+Años";
 
   window.open(url, "_blank");
+}
+
+function descargarICS() {
+
+  const contenido =
+`BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:Mis 15 Años Milagros
+DTSTART:20260808T210000
+DTEND:20270809T030000
+DESCRIPTION:Te espero en mis 15 años
+LOCATION:Montevideo
+END:VEVENT
+END:VCALENDAR`;
+
+  const blob = new Blob([contenido], { type: "text/calendar" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "milagros15.ics";
+  a.click();
+
+  URL.revokeObjectURL(url);
 }
 
 // MAPA (Google Maps)
