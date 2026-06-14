@@ -63,6 +63,10 @@ h2 {
 
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -73,6 +77,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  overflow-x: hidden;
 }
 
 /* SOBRE */
@@ -83,27 +89,40 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  transition: all 0.8s ease;
+}
+
+/* animación de salida */
+.splash.abierto {
+  opacity: 0;
+  transform: scale(1.2) rotateX(20deg);
+  filter: blur(4px);
 }
 
 .hint {
-  font-size: 14px;
+  font-size: 13px;
   opacity: 0.6;
+  margin-top: 10px;
 }
 
 .sobre {
   font-size: 90px;
   animation: float 2s infinite ease-in-out;
-  margin-bottom: 20px;
 }
 
 button {
-  padding: 12px 20px;
+  background: linear-gradient(135deg, #d4af37, #7b5cff);
+  box-shadow: 0 0 10px rgba(255,215,0,0.2);
   border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  background: #ff4fd8;
+  padding: 12px 18px;
+  border-radius: 25px;
   color: white;
-  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
 }
 
 /* animación suave */
@@ -142,6 +161,13 @@ h2 {
   border: 2px solid rgba(255, 215, 0, 0.4); /* dorado suave */
 }
 
+#hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .carousel {
   position: relative;
   width: 280px;
@@ -149,7 +175,11 @@ h2 {
   margin: 20px auto;
   overflow: hidden;
   border-radius: 15px;
-  border: 2px solid rgba(255, 215, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgba(255, 215, 0, 0.25);
+  box-shadow: 0 0 20px rgba(255,215,0,0.15);
 }
 
 .slide {
@@ -294,14 +324,91 @@ h2 {
 }
 
 section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 40px 20px;
+  text-align: center;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(40px);
   transition: all 0.8s ease;
 }
 
 section.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.nombre-cumple {
+  font-family: 'Great Vibes', cursive;
+  font-size: 42px;
+  color: gold;
+  
+  opacity: 0;
+  transform: translateY(40px) scale(0.9);
+
+  text-shadow:
+    0 0 5px rgba(255,215,0,0.3),
+    0 0 15px rgba(255,215,0,0.2);
+
+  animation: entradaMilagros 2.2s ease-out forwards,
+             glowPulse 3s ease-in-out infinite 2.2s;
+}
+
+/* ✨ ENTRADA */
+@keyframes entradaMilagros {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+    filter: blur(6px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.05);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 🌟 PULSO DE LUZ */
+@keyframes glowPulse {
+  0% {
+    text-shadow:
+      0 0 5px rgba(255,215,0,0.3),
+      0 0 15px rgba(255,215,0,0.2);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(255,215,0,0.6),
+      0 0 25px rgba(255,215,0,0.4);
+  }
+  100% {
+    text-shadow:
+      0 0 5px rgba(255,215,0,0.3),
+      0 0 15px rgba(255,215,0,0.2);
+  }
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0b0b2b, #000);
+  overflow-x: hidden;
+}
+
+/* canvas ocupa toda la pantalla */
+#starsCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
 </style>
@@ -312,6 +419,8 @@ section.visible {
 
 <body>
 
+<canvas id="starsCanvas"></canvas>
+
   <!-- SOBRE INICIAL -->
 <section id="splash" class="splash" onclick="abrirInvitacion()">
 
@@ -321,9 +430,17 @@ section.visible {
 
   <h2>Tenés una invitación</h2>
 
-  <p class="hint">Tocá el sobre para abrir</p>
+  <p class="hint">Deslizá para descubrir ✨</p>
 
 </section>
+
+<audio id="musica" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<button onclick="toggleMusica()" id="btnMusica">
+🎵 Música
+</button>
 
 <!-- CONTENIDO PRINCIPAL (por ahora oculto) -->
 <div id="contenido" style="display:none;">
@@ -332,7 +449,7 @@ section.visible {
   <section id="hero">
 
   <h1>Mis 15 Años</h1>
-  <h2>Milagros</h2>
+  <h2 class="nombre-cumple">Milagros</h2>
 
   <div class="carousel">
     <img class="slide active" src="https://picsum.photos/500/700?1">
@@ -463,24 +580,62 @@ section.visible {
 
 <script>
 function abrirInvitacion() {
-  document.getElementById("splash").style.display = "none";
-  document.getElementById("contenido").style.display = "block";
+
+  const splash = document.getElementById("splash");
+  const contenido = document.getElementById("contenido");
+  const musica = document.getElementById("musica");
+
+  splash.classList.add("abierto");
+
+  // 🎵 intentar reproducir música
+  if (musica) {
+    musica.volume = 0.4; // volumen suave
+    musica.play().catch(() => {
+      console.log("Autoplay bloqueado por navegador");
+    });
+  }
+
+  setTimeout(() => {
+    splash.style.display = "none";
+    contenido.style.display = "block";
+  }, 800);
 }
 </script>
 
 <script>
-let index = 0;
-const slides = document.querySelectorAll(".slide");
+function toggleMusica() {
+  const musica = document.getElementById("musica");
 
-function showSlide(i) {
-  slides.forEach(s => s.classList.remove("active"));
-  slides[i].classList.add("active");
+  if (musica.paused) {
+    musica.play();
+  } else {
+    musica.pause();
+  }
 }
+</script>
 
-setInterval(() => {
-  index = (index + 1) % slides.length;
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const slides = document.querySelectorAll(".slide");
+  let index = 0;
+
+  if (slides.length === 0) return;
+
+  function showSlide(i) {
+    slides.forEach(slide => slide.classList.remove("active"));
+    slides[i].classList.add("active");
+  }
+
+  // mostrar la primera sí o sí
   showSlide(index);
-}, 3000);
+
+  setInterval(() => {
+    index = (index + 1) % slides.length;
+    showSlide(index);
+  }, 3000);
+
+});
 </script>
 
 <script>
@@ -546,15 +701,114 @@ Confirmo asistencia para ${cantidad} persona(s).`;
 <script>
 const sections = document.querySelectorAll("section");
 
-const observer = new IntersectionObserver(entries => {
+const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if(entry.isIntersecting){
+    if (entry.isIntersecting) {
       entry.target.classList.add("visible");
     }
   });
+}, {
+  threshold: 0.2
 });
 
 sections.forEach(sec => observer.observe(sec));
+</script>
+
+<script>
+function createStar() {
+  const star = document.createElement("div");
+  star.style.position = "fixed";
+  star.style.width = "2px";
+  star.style.height = "2px";
+  star.style.background = "white";
+  star.style.top = Math.random() * 100 + "vh";
+  star.style.left = Math.random() * 100 + "vw";
+  star.style.opacity = Math.random();
+  star.style.pointerEvents = "none";
+
+  document.body.appendChild(star);
+
+  setTimeout(() => {
+    star.remove();
+  }, 4000);
+}
+
+setInterval(createStar, 200);
+</script>
+
+<script>
+const canvas = document.getElementById("starsCanvas");
+const ctx = canvas.getContext("2d");
+
+let stars = [];
+const STAR_COUNT = 120;
+
+// ajustar tamaño
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+window.addEventListener("resize", resize);
+resize();
+
+// crear estrellas
+function createStars() {
+  stars = [];
+  for (let i = 0; i < STAR_COUNT; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 1.5,
+      speed: Math.random() * 0.3 + 0.1,
+      alpha: Math.random()
+    });
+  }
+}
+
+createStars();
+
+// animación
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let star of stars) {
+    star.y += star.speed;
+
+    // reiniciar arriba si baja
+    if (star.y > canvas.height) {
+      star.y = 0;
+      star.x = Math.random() * canvas.width;
+    }
+
+    // brillo suave
+    star.alpha += (Math.random() - 0.5) * 0.02;
+    if (star.alpha < 0.2) star.alpha = 0.2;
+    if (star.alpha > 1) star.alpha = 1;
+
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+    ctx.fill();
+  }
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const name = document.querySelector(".nombre-cumple");
+
+  if (name) {
+    // reinicia animación si recarga
+    name.style.animation = "none";
+    void name.offsetWidth;
+    name.style.animation = "";
+  }
+});
 </script>
 
 </body>
