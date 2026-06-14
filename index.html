@@ -497,6 +497,16 @@ section::after {
   will-change: transform;
 }
 
+#hashtag h3 {
+  font-size: 32px;
+  color: gold;
+  margin: 15px 0;
+
+  text-shadow:
+    0 0 5px rgba(255,215,0,0.4),
+    0 0 15px rgba(255,215,0,0.2);
+}
+
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
@@ -545,25 +555,28 @@ section::after {
 
   <!-- MENSAJE -->
   <section id="mensaje">
+  
+  <p class="frase">
+    Quiero compartir con vos un momento muy especial de mi vida ✨
+  </p>
+  
   </section>
 
   <!-- INVITADO PERSONALIZADO -->
 <section id="invitado">
 
-  <h2 id="nombreInvitado">Invitado</h2>
+  <h2>🎟️ Invitación</h2>
+
+  <p id="nombreInvitado">Invitado</p>
 
   <p id="cantidadInvitado"></p>
-
-  <p class="frase">
-    Quiero compartir con vos un momento muy especial de mi vida ✨
-  </p>
 
 </section>
 
 <!-- FECHA -->
 <section id="fecha">
 
-  <h2>📅 Fecha del evento</h2>
+  <h2>📅 Agendá la Fecha</h2>
 
   <p class="fecha-grande">08 de Agosto 2026 - 21:00 hs</p>
 
@@ -580,7 +593,10 @@ section::after {
 
   <p>Salón "Haras Los Vagones"</p>
 
-  <p>Camino de la Redención 8660 Montevideo, Uruguay</p>
+  <p>Camino de la Redención 8660
+  <br>
+  Montevideo, Uruguay
+  </p>
 
 <!--  <button onclick="abrirMapa()">
     Ver ubicación
@@ -597,14 +613,14 @@ section::after {
 
   <h2>👗 Dress Code</h2>
 
-  <p>Formal</p>
+  <p>Formal - Elegante</p>
 
 </section>
 
   <!-- GALERÍA -->
 <section id="galeria">
 
-  <h2>📸 Momentos</h2>
+  <h2>📸 Momentos únicos</h2>
 
   <div class="galeria-grid">
 
@@ -614,6 +630,21 @@ section::after {
     <img src="https://picsum.photos/300/300?13">
 
   </div>
+
+</section>
+
+<!-- HASHTAG -->
+<section id="hashtag">
+
+  <h2>📸 Compartí tus momentos</h2>
+
+  <p>Subí tus fotos y videos utilizando el hashtag</p>
+
+  <h3>#Mis15Mili</h3>
+
+  <p>
+    Así podremos reunir cada recuerdo de esta noche mágica ✨
+  </p>
 
 </section>
 
@@ -646,7 +677,7 @@ section::after {
 
   <h2>📲 Confirmar asistencia</h2>
   
-  <p>Tenés tiempo hasta el 25 de Julio del 2026 para confirmar.</p>
+  <p>Por favor confirmar antes del 25 de Julio.</p>
 
   <button onclick="confirmarAsistencia()">
     Confirmar por WhatsApp
@@ -739,7 +770,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("nombreInvitado").innerText = nombre;
 
   document.getElementById("cantidadInvitado").innerText =
-    "Reservado para " + cantidad + " persona(s)";
+    "Reserva para " + cantidad + " persona(s)";
 
 });
 </script>
