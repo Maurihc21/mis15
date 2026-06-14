@@ -34,6 +34,7 @@ h2 {
 }
 
 p {
+  color: white;
   font-size: clamp(14px, 3.8vw, 18px);
   line-height: 1.6;
 }
@@ -542,7 +543,7 @@ section::after {
 
   <h2>📅 Fecha del evento</h2>
 
-  <p class="fecha-grande">15 de Marzo 2027 - 21:00 hs</p>
+  <p class="fecha-grande">08 de Agosto 2026 - 21:00 hs</p>
 
   <button onclick="agendarEvento()">
     Agregar al calendario
@@ -555,13 +556,15 @@ section::after {
 
   <h2>📍 Lugar del evento</h2>
 
-  <p>Salón "Ejemplo Eventos"</p>
+  <p>Salón "Haras Los Vagones"</p>
 
-  <p>Montevideo, Uruguay</p>
+  <p>Camino de la Redención 8660 Montevideo, Uruguay</p>
 
-  <button onclick="abrirMapa()">
+<!--  <button onclick="abrirMapa()">
     Ver ubicación
-  </button>
+  </button> -->
+  
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3277.007603015978!2d-56.293491700000004!3d-34.780583899999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a1d1804707f00d%3A0x30fde4205a107e56!2sHaras%20Los%20Vagones!5e0!3m2!1ses!2suy!4v1781399227438!5m2!1ses!2suy" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
 </section>
 
@@ -570,8 +573,7 @@ section::after {
 
   <h2>👗 Dress Code</h2>
 
-  <p>Elegante / Formal</p>
-  <p>Colores sugeridos: Negro, dorado y tonos suaves</p>
+  <p>Formal</p>
 
 </section>
 
@@ -610,7 +612,7 @@ section::after {
   <h2>🎁 Regalos</h2>
 
   <p>
-    Tu presencia es mi mejor regalo 💖
+    Cuenta Prex: 23740129 Milagros Banchero 💖
   </p>
 
 </section>
@@ -730,7 +732,7 @@ function agendarEvento() {
 
 // MAPA (Google Maps)
 function abrirMapa() {
-  const url = "https://www.google.com/maps?q=Salón+Ejemplo+Eventos+Montevideo";
+  const url = "https://maps.app.goo.gl/jxNbH2QkuT9bF9FU9";
   window.open(url, "_blank");
 }
 
@@ -738,7 +740,7 @@ function abrirMapa() {
 
 <script>
 
-const numeroWhatsApp = "598XXXXXXXX"; // 👈 TU NÚMERO REAL
+const numeroWhatsApp = "59899122334"; // 👈 TU NÚMERO REAL
 
 function confirmarAsistencia() {
 
@@ -748,7 +750,7 @@ function confirmarAsistencia() {
   const cantidad = params.get("c") || "1";
 
   const mensaje =
-`Hola Milagros 💫
+`Hola Milagros,
 Soy ${nombre}.
 Confirmo asistencia para ${cantidad} persona(s).`;
 
