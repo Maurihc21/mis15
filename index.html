@@ -66,6 +66,10 @@ h2 {
     width: 95%;
     height: 380px;
   }
+  
+  section {
+    padding: 60px 15px;
+  }
 
 }
 
@@ -78,6 +82,7 @@ body {
   min-height: 100vh;
 
   background: radial-gradient(circle at top, #0b0b2b, #000);
+  background-attachment: fixed;
 
   overflow-x: hidden;
 
@@ -328,22 +333,40 @@ h2 {
 }
 
 section {
-  min-height: 100vh;
+  min-height: auto;
+  padding: 90px 20px;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-
-  padding: 40px 20px;
   text-align: center;
+
   opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s ease;
+  transform: translateY(40px) scale(0.98);
+  filter: blur(8px);
+
+  transition:
+    opacity 1s ease,
+    transform 1s ease,
+    filter 1s ease;
+}
+
+section + section {
+  margin-top: -20px;
 }
 
 section.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+section::after {
+  content: "";
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,215,0,0.3), transparent);
+  margin-top: 40px;
 }
 
 .nombre-cumple {
@@ -804,6 +827,23 @@ document.addEventListener("DOMContentLoaded", () => {
     void name.offsetWidth;
     name.style.animation = "";
   }
+});
+</script>
+
+<script>
+window.addEventListener("scroll", () => {
+  const sections = document.querySelectorAll("section");
+
+  sections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    let progress = 1 - Math.abs(rect.top / windowHeight);
+
+    progress = Math.max(0.9, Math.min(1, progress));
+
+    sec.style.transform = `scale(${progress})`;
+  });
 });
 </script>
 
