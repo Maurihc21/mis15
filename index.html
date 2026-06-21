@@ -596,22 +596,26 @@ section::after {
 }
 
 .story {
-  flex: 0 0 80%;
-  scroll-snap-align: center;
+  flex: 0 0 40%;
+  aspect-ratio: 9 / 16;
 
-  border-radius: 20px;
+  scroll-snap-align: center;
+  border-radius: 25px;
   overflow: hidden;
 
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  transform: scale(0.95);
   transition: transform 0.3s ease;
 }
 
 .story img {
   width: 100%;
-  height: 400px;
-  object-fit: cover;
+  height: 100%;
+  object-fit: cover;   /* llena el marco vertical */
+  object-position: center;
+  display: block;
 }
 
 /* efecto foco */
@@ -621,6 +625,17 @@ section::after {
 
 .stories {
   scroll-behavior: smooth;
+}
+
+@media (min-width: 768px) {
+  .stories {
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .story {
+    flex: 0 0 220px;   /* 👈 tamaño fijo en PC */
+  }
 }
 
 </style>
@@ -729,7 +744,10 @@ section::after {
 
   <h2>👗 Dress Code</h2>
 
-  <p>Formal - Elegante</p>
+  <p>Formal - Elegante
+  <br>
+  (Se reservan los colores Blanco y Bordo)
+  </p>
 
 </section>
 
@@ -743,19 +761,19 @@ section::after {
     <div class="stories">
 
     <div class="story">
-      <img src="img/Moments/M_Foto1">
+      <img src="mis15/img/Moments/M_Foto1.jpeg">
     </div>
 
     <div class="story">
-      <img src="img/Moments/M_Foto2">
+      <img src="mis15/img/Moments/M_Foto2.jpeg">
     </div>
 
     <div class="story">
-      <img src="img/Moments/M_Foto3">
+      <img src="mis15/img/Moments/M_Foto3.jpeg">
     </div>
 	
 	<div class="story">
-      <img src="img/Moments/M_Foto4">
+      <img src="mis15/img/Moments/M_Foto4.jpeg">
     </div>
  
   </div>
