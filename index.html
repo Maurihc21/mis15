@@ -578,7 +578,7 @@ section::after {
   }
 }
 
-.stories {
+<!--.stories {
   display: flex;
   gap: 15px;
 
@@ -616,6 +616,48 @@ section::after {
   object-fit: cover;   /* llena el marco vertical */
   object-position: center;
   display: block;
+}-->
+
+.stories {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 20px;
+  scroll-behavior: smooth;
+  justify-content: center;
+
+  /* ocultar scrollbar */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.stories::-webkit-scrollbar {
+  display: none;
+}
+
+/* TARJETA STORY */
+.story {
+  flex: 0 0 clamp(140px, 40vw, 180px);
+  aspect-ratio: 9 / 16;
+  scroll-snap-align: center;
+  border-radius: 25px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  transform: scale(0.9);
+  opacity: 0.7;
+}
+
+/* IMAGEN */
+.story img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* efecto foco */
@@ -955,7 +997,7 @@ VERSION:2.0
 BEGIN:VEVENT
 SUMMARY:Mis 15 Años Milagros
 DTSTART:20260808T210000
-DTEND:20270809T030000
+DTEND:20260809T030000
 DESCRIPTION:Te espero en mis 15 años
 LOCATION:Montevideo
 END:VEVENT
@@ -1059,18 +1101,18 @@ window.addEventListener("resize", resize);
 resize();
 
 // crear estrellas
-function createStars() {
-  stars = [];
-  for (let i = 0; i < STAR_COUNT; i++) {
-    stars.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      radius: Math.random() * 1.5,
-      speed: Math.random() * 0.3 + 0.1,
-      alpha: Math.random()
-    });
-  }
-}
+//function createStars() {
+  //stars = [];
+  //for (let i = 0; i < STAR_COUNT; i++) {
+    //stars.push({
+      //x: Math.random() * canvas.width,
+      //y: Math.random() * canvas.height,
+      //radius: Math.random() * 1.5,
+      //speed: Math.random() * 0.3 + 0.1,
+      //alpha: Math.random()
+    //});
+  //}
+//}
 
 createStars();
 
@@ -1134,10 +1176,11 @@ window.addEventListener("scroll", () => {
 });
 </script>
 
-<script>
-const container = document.querySelector(".stories");
+<!--<script>
 
-container.addEventListener("scroll", () => {
+const container = document.querySelector(".stories");
+if (container) {
+  container.addEventListener("scroll", () => {
   const stories = document.querySelectorAll(".story");
 
   stories.forEach(story => {
@@ -1153,7 +1196,34 @@ container.addEventListener("scroll", () => {
     }
   });
 });
-</script>
+</script>-->
+
+const container = document.querySelector(".stories");
+
+if (container) {
+  const updateFocus = () => {
+    const stories = document.querySelectorAll(".story");
+    const center = window.innerWidth / 2;
+
+    stories.forEach(story => {
+      const rect = story.getBoundingClientRect();
+      const storyCenter = rect.left + rect.width / 2;
+      const distance = Math.abs(center - storyCenter);
+
+      if (distance < 120) {
+        story.style.transform = "scale(1)";
+        story.style.opacity = "1";
+      } else {
+        story.style.transform = "scale(0.9)";
+        story.style.opacity = "0.6";
+      }
+    });
+  };
+
+  container.addEventListener("scroll", updateFocus);
+  window.addEventListener("load", updateFocus);
+  window.addEventListener("resize", updateFocus);
+}
 
 
 <button id="musicToggle" onclick="toggleMusica()">
