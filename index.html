@@ -4,8 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mis 15 Años</title>
-  <link rel="preload" as="image" href="img1.jpg">
-  <link rel="preload" as="image" href="img2.jpg">
+  <link rel="preload" as="image" href="C_Foto1.jpg">
+  <link rel="preload" as="image" href="C_Foto2.jpg">
+  <link rel="preload" as="image" href="C_Foto3.jpg">
+  <link rel="preload" as="image" href="M_Foto1.jpg">
+  <link rel="preload" as="image" href="M_Foto2.jpg">
+  <link rel="preload" as="image" href="M_Foto3.jpg">
+  <link rel="preload" as="image" href="M_Foto4.jpg">
   
 <style>
   
@@ -891,7 +896,12 @@ function abrirInvitacion() {
   const splash = document.getElementById("splash");
   const contenido = document.getElementById("contenido");
   const musica = document.getElementById("musica");
-
+  
+// ✅ vibración sutil
+  if (navigator.vibrate) {
+    navigator.vibrate(10);
+  }
+  
   splash.classList.add("abierto");
 
   // 🎵 intentar reproducir música
